@@ -1,0 +1,55 @@
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Demand-Est</title>
+    <style>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+          background-color: rgb(0, 0, 0);
+        }
+        
+        .topnav {
+          overflow: hidden;
+          text-align: center;
+          padding: 30px;
+        }
+        
+        .topnav a {
+          float: center;
+          color: #ffffff;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 20px;
+        }
+        
+        .topnav a:hover {
+          color: rgb(107, 107, 107);
+        }
+    </style>
+  </head>
+  <body>
+
+    <div class="topnav"><b>
+      <a href="Home.html">Home</a>
+      <a href="upload.html">Predict</a></b>
+    </div>
+    
+    <div style="color:white;text-align:center;font-size: 40px;">
+        <div id="predict"></div>
+        <script>
+            const predictList = document.getElementById('predict')
+            new URLSearchParams(window.location.search).forEach((value,name) => {
+                predictList.append('${name}:${value}')
+                predictList.append(document.createElement('br'))
+            })
+        </script>
+    <div class="form-group" style="padding-top:100px">
+        <label class="font-weight-regular"> Predictions </label>
+    </div>
+  </div>
+    </body>
+    
+</html>
