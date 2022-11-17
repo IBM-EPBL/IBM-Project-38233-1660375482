@@ -4,14 +4,12 @@ import pickle
 import os
 from flask import Flask, request, render_template
 
-app = Flask(__name__)
+template_dir = os.path.abspath('./templates')
+app = Flask(__name__, template_folder=template_dir)
+# app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template("home.html")
-
-@app.route('/home')
-def home():
     return render_template("home.html")
 
 @app.route('/pred')
