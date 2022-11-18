@@ -16,19 +16,17 @@ def index():
 def pred():
     return render_template("upload.html")
 
-@app.route('/predict-value', methods=['GET', 'POST'])
+@app.route('/predict-value', methods=['POST'])
 def predict():
     print("[INFO] loading model...")
-    model = pickle.loads(open('fdemand.pkl', 'rb').read())
+    model = pickle.loads(open('../Training/fdemand.pkl', 'rb').read())
     input_features = [float(x) for x in request.form.values()]
     features_value = [np.array(input_features)]
-    print(features_value)
-
     features_name = ['homepage_featured', 'emailer_for_promotion', 'op_area', 'cuisine', 'city_code', 'region_code', 'category']
     prediction = model.predict(features_value)
     output = prediction[0]
     print(output)
-    return render_template('result.html', prediction_text = output)
+    return render_template('result.html', no_of_orders = int(output))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=False)

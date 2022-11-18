@@ -2,6 +2,7 @@
 <body>
   <!-- Background Video-->
   <!-- Background Video-->
+  <div class="mission-statement">
   <video
     class="bg-video"
     playsinline="playsinline"
@@ -15,10 +16,11 @@
       type="video/mp4"
     />
   </video>
+</div>
   
   <!-- Masthead-->
-  <div class="d-flex justify-content-center card m-5">
-    <form class="card-body" action="/predict-value">
+  <div class="d-flex justify-content-center card m-5 p-3">
+    <form class="card-body" action="/predict-value" method="post">
       <h2>Upload Required data</h2>
 
       <div class="radios py-3 dropdown">
@@ -38,7 +40,7 @@
       </div>
 
       <label for="quantity" class="dropdown py-3">OP_Area (between 2 and 7): <br />
-      <input type="number" id="op_area" name="op_area" step="0.1" min="2" max="7">
+      <input type="number" id="op_area" name="op_area" step="0.1" min="2" max="7" required>
       </label>
 
 
