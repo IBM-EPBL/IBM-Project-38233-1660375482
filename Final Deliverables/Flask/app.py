@@ -12,23 +12,6 @@ load_dotenv()
 template_dir = os.path.abspath('./templates')
 app = Flask(__name__, template_folder=template_dir)
 
-
-# NOTE: you must manually set API_KEY below using information retrieved from your IBM Cloud account.
-# API_KEY = "<your API key>"
-# token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":
-#  API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
-# mltoken = token_response.json()["access_token"]
-
-# header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + mltoken}
-
-# # NOTE: manually define and pass the array(s) of values to be scored in the next line
-# payload_scoring = {"input_data": [{"fields": [array_of_input_fields], "values": [array_of_values_to_be_scored, another_array_of_values_to_be_scored]}]}
-
-# response_scoring = requests.post('https://us-south.ml.cloud.ibm.com/ml/v4/deployments/7f16a51f-5465-40ad-a4d4-85b37976d269/predictions?version=2022-11-18', json=payload_scoring,
-#  headers={'Authorization': 'Bearer ' + mltoken})
-# print("Scoring response")
-# print(response_scoring.json())
-
 @app.route('/')
 def index():
     return render_template("home.html")
@@ -45,7 +28,6 @@ def predict():
 
     features_value = [np.array(input_features)]
     features_name = ['homepage_featured', 'emailer_for_promotion', 'op_area', 'cuisine', 'city_code', 'region_code', 'category']
-    print(features_name, features_value)
 
     # Access IBM Cloud
     API_KEY = os.environ.get("API_KEY") or None
@@ -56,18 +38,21 @@ def predict():
     header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + mltoken}
 
     # NOTE: manually define and pass the array(s) of values to be scored in the next line
-    # payload_scoring = {"input_data": [{"fields": [array_of_input_fields], "values": [array_of_values_to_be_scored, another_array_of_values_to_be_scored]}]}
+    payload_scoring = {"input_data": [{"fields": features_name, "values": [input_features]}]}
 
-    response_scoring = requests.post('https://us-south.ml.cloud.ibm.com/ml/v4/deployments/7f16a51f-5465-40ad-a4d4-85b37976d269/predictions?version=2022-11-18', json=payload_scoring,
-     headers={'Authorization': 'Bearer ' + mltoken})
-    print("Scoring response")
-    print(response_scoring.json())
+    response_scoring = requests.post(
+        'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/7f16a51f-5465-40ad-a4d4-85b37976d269/predictions?version=2022-11-18', 
+        json=payload_scoring,
+    headers={'Authorization': 'Bearer ' + mltoken})
+    predicted_value = response_scoring.json()['predictions'][0]['values'][0][0]
 
-    prediction = model.predict(features_value)
-    output = prediction[0]
-    print(output)
-    return render_template('result.html', no_of_orders = int(output))
+    # For Local Deployment
+    # prediction = model.predict(features_value)
+    # output = prediction[0]
+    # print(output)
+
+    return render_template('result.html', no_of_orders = int(predicted_value))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=False)
+    app.run(host='0.0.0.0', port=8000, debug=True)
 
