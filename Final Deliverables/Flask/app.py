@@ -3,10 +3,31 @@ import numpy as np
 import pickle
 import os
 from flask import Flask, request, render_template
+import requests
+from dotenv import load_dotenv
+
+# Loading up the values
+load_dotenv()
 
 template_dir = os.path.abspath('./templates')
 app = Flask(__name__, template_folder=template_dir)
-# app = Flask(__name__)
+
+
+# NOTE: you must manually set API_KEY below using information retrieved from your IBM Cloud account.
+# API_KEY = "<your API key>"
+# token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":
+#  API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
+# mltoken = token_response.json()["access_token"]
+
+# header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + mltoken}
+
+# # NOTE: manually define and pass the array(s) of values to be scored in the next line
+# payload_scoring = {"input_data": [{"fields": [array_of_input_fields], "values": [array_of_values_to_be_scored, another_array_of_values_to_be_scored]}]}
+
+# response_scoring = requests.post('https://us-south.ml.cloud.ibm.com/ml/v4/deployments/7f16a51f-5465-40ad-a4d4-85b37976d269/predictions?version=2022-11-18', json=payload_scoring,
+#  headers={'Authorization': 'Bearer ' + mltoken})
+# print("Scoring response")
+# print(response_scoring.json())
 
 @app.route('/')
 def index():
@@ -21,8 +42,27 @@ def predict():
     print("[INFO] loading model...")
     model = pickle.loads(open('../Training/fdemand.pkl', 'rb').read())
     input_features = [float(x) for x in request.form.values()]
+
     features_value = [np.array(input_features)]
     features_name = ['homepage_featured', 'emailer_for_promotion', 'op_area', 'cuisine', 'city_code', 'region_code', 'category']
+    print(features_name, features_value)
+
+    # Access IBM Cloud
+    API_KEY = os.environ.get("API_KEY") or None
+    token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":
+    API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
+    mltoken = token_response.json()["access_token"]
+
+    header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + mltoken}
+
+    # NOTE: manually define and pass the array(s) of values to be scored in the next line
+    # payload_scoring = {"input_data": [{"fields": [array_of_input_fields], "values": [array_of_values_to_be_scored, another_array_of_values_to_be_scored]}]}
+
+    response_scoring = requests.post('https://us-south.ml.cloud.ibm.com/ml/v4/deployments/7f16a51f-5465-40ad-a4d4-85b37976d269/predictions?version=2022-11-18', json=payload_scoring,
+     headers={'Authorization': 'Bearer ' + mltoken})
+    print("Scoring response")
+    print(response_scoring.json())
+
     prediction = model.predict(features_value)
     output = prediction[0]
     print(output)
