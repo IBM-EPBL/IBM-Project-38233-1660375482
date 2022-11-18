@@ -12,11 +12,11 @@ app = Flask(__name__, template_folder=template_dir)
 def index():
     return render_template("home.html")
 
-@app.route('/pred')
+@app.route('/predict')
 def pred():
     return render_template("upload.html")
 
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/predict-value', methods=['GET', 'POST'])
 def predict():
     print("[INFO] loading model...")
     model = pickle.loads(open('fdemand.pkl', 'rb').read())
