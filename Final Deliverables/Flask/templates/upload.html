@@ -1,36 +1,51 @@
 {% extends 'base.html' %} {% block body %}
 <body>
   <!-- Background Video-->
+  <!-- Background Video-->
+  <video
+    class="bg-video"
+    playsinline="playsinline"
+    autoplay="autoplay"
+    muted="muted"
+    loop="loop"
+
+  >
+    <source
+      src="{{ url_for('static', filename='assets/video.mp4') }}"
+      type="video/mp4"
+    />
+  </video>
   
   <!-- Masthead-->
-  <div class=" d-flex justify-content-center text-light ">
-    <form>
+  <div class="d-flex justify-content-center card m-5">
+    <form class="card-body" action="/predict-value">
+      <h2>Upload Required data</h2>
 
       <div class="radios py-3 dropdown">
         <p>Home Page Featured:</p>
-        <input type="radio" id="yes" name="fav_language" value="1">
+        <input type="radio" id="yes" name="homepage_featured" value="1">
         <label for="Yes">Yes</label><br>
-        <input type="radio" id="no" name="fav_language" value="0">
+        <input type="radio" id="no" name="homepage_featured" value="0" checked>
         <label for="No">No</label><br>
       </div>
 
       <div class="radios py-3 dropdown">
         <p>Emailer for production:</p>
-        <input type="radio" id="yes" name="fav_language" value="1">
+        <input type="radio" id="yes" name="emailer_for_promotion" value="1">
         <label for="Yes">Yes</label><br>
-        <input type="radio" id="no" name="fav_language" value="0">
+        <input type="radio" id="no" name="emailer_for_promotion" value="0" checked>
         <label for="No">No</label><br>
       </div>
 
-      <label for="quantity" class="dropdown py-3">OP_Area (between 2 and 7):
-      <input type="number" id="quantity" name="quantity" step="0.1" min="2" max="7">
+      <label for="quantity" class="dropdown py-3">OP_Area (between 2 and 7): <br />
+      <input type="number" id="op_area" name="op_area" step="0.1" min="2" max="7">
       </label>
 
 
       <!-- Cuisine -->
       <div class="dropdown">
         <p>Cuisine</p>
-        <select name="homePageFeatured" id="homePageFeatured" class="btn btn-secondary dropdown-toggle">
+        <select name="cuisine" id="cuisine" class="btn btn-secondary dropdown-toggle">
           <option value="0">Continental</option>
           <option value="1">Indian</option>
           <option value="2">Italian</option>
@@ -42,58 +57,58 @@
       <!-- City Code -->
       <div class="dropdown py-3">
         <p>City Code</p>
-        <select name="homePageFeatured" id="homePageFeatured" class="btn btn-secondary dropdown-toggle">
-        <option value="0">647</option>
-        <option value="0">614</option>
-        <option value="0">679</option>
-        <option value="0">659</option>
-        <option value="0">526</option>
-        <option value="0">590</option>
-        <option value="0">599</option>
-        <option value="0">685</option>
-        <option value="0">461</option>
-        <option value="0">649</option>
-        <option value="0">541</option>
-        <option value="0">478</option>
-        <option value="0">703</option>
-        <option value="0">576</option>
-        <option value="0">628</option>
-        <option value="0">702</option>
-        <option value="0">579</option>
-        <option value="0">596</option>
-        <option value="0">648</option>
-        <option value="0">632</option>
-        <option value="0">522</option>
-        <option value="0">615</option>
-        <option value="0">577</option>
-        <option value="0">517</option>
-        <option value="0">651</option>
-        <option value="0">683</option>
-        <option value="0">713</option>
-        <option value="0">609</option>
-        <option value="0">675</option>
-        <option value="0">553</option>
-        <option value="0">593</option>
-        <option value="0">654</option>
-        <option value="0">693</option>
-        <option value="0">658</option>
-        <option value="0">515</option>
-        <option value="0">556</option>
-        <option value="0">561</option>
-        <option value="0">680</option>
-        <option value="0">620</option>
-        <option value="0">638</option>
-        <option value="0">700</option>
-        <option value="0">676</option>
-        <option value="0">604</option>
-        <option value="0">456</option>
-        <option value="0">562</option>
-        <option value="0">695</option>
-        <option value="0">699</option>
-        <option value="0">602</option>
-        <option value="0">485</option>
-        <option value="0">698</option>
-        <option value="0">473</option>
+        <select name="city_code" id="city_code" class="btn btn-secondary dropdown-toggle">
+        <option value="647">647</option>
+        <option value="614">614</option>
+        <option value="679">679</option>
+        <option value="659">659</option>
+        <option value="526">526</option>
+        <option value="590">590</option>
+        <option value="599">599</option>
+        <option value="685">685</option>
+        <option value="461">461</option>
+        <option value="649">649</option>
+        <option value="541">541</option>
+        <option value="478">478</option>
+        <option value="703">703</option>
+        <option value="576">576</option>
+        <option value="628">628</option>
+        <option value="702">702</option>
+        <option value="579">579</option>
+        <option value="596">596</option>
+        <option value="648">648</option>
+        <option value="632">632</option>
+        <option value="522">522</option>
+        <option value="615">615</option>
+        <option value="577">577</option>
+        <option value="517">517</option>
+        <option value="651">651</option>
+        <option value="683">683</option>
+        <option value="713">713</option>
+        <option value="609">609</option>
+        <option value="675">675</option>
+        <option value="553">553</option>
+        <option value="593">593</option>
+        <option value="654">654</option>
+        <option value="693">693</option>
+        <option value="658">658</option>
+        <option value="515">515</option>
+        <option value="556">556</option>
+        <option value="561">561</option>
+        <option value="680">680</option>
+        <option value="620">620</option>
+        <option value="638">638</option>
+        <option value="700">700</option>
+        <option value="676">676</option>
+        <option value="604">604</option>
+        <option value="456">456</option>
+        <option value="562">562</option>
+        <option value="695">695</option>
+        <option value="699">699</option>
+        <option value="602">602</option>
+        <option value="485">485</option>
+        <option value="698">698</option>
+        <option value="473">473</option>
       </select>
       </div>
 
@@ -102,15 +117,15 @@
       <!-- Region Code -->
       <div class="dropdown">
         <p>Region Code</p>
-        <select name="homePageFeatured" id="homePageFeatured" class="btn btn-secondary dropdown-toggle">
-          <option value="0">56</option>
-          <option value="1">85</option>
-          <option value="2">77</option>
-          <option value="3">34</option>
-          <option value="3">35</option>
-          <option value="3">71</option>
-          <option value="3">93</option>
-          <option value="3">23</option>
+        <select name="region_code" id="region_code" class="btn btn-secondary dropdown-toggle">
+          <option value="56">56</option>
+          <option value="85">85</option>
+          <option value="77">77</option>
+          <option value="34">34</option>
+          <option value="35">35</option>
+          <option value="71">71</option>
+          <option value="93">93</option>
+          <option value="23">23</option>
         </select>
       </div>
 
@@ -119,7 +134,7 @@
       <!-- Categories -->
       <div class="dropdown py-3">
         <p>Categories</p>
-        <select name="homePageFeatured" id="homePageFeatured" class="btn btn-secondary dropdown-toggle">
+        <select name="category" id="category" class="btn btn-secondary dropdown-toggle">
           <option value="0">Beverages</option>
           <option value="1">Biryani</option>
           <option value="2">Desert</option>
@@ -140,8 +155,12 @@
       <!-- Categories -->
 
       <!-- Categories -->
-
-
+      <div class="d-flex justify-content-center my-4">
+        <input type="submit" value="Predict Orders" class="btn btn-secondary" id="submit-btn">
+        <div class="spinner-border d-none" role="status" id="loader">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
 
   </form>
   </div>

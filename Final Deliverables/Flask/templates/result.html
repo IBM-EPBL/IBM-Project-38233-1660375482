@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block body %}
+<body>
+  <!-- Background Video-->
+  <!-- Background Video-->
+  <video
+    class="bg-video"
+    playsinline="playsinline"
+    autoplay="autoplay"
+    muted="muted"
+    loop="loop"
+
+  >
+    <source
+      src="{{ url_for('static', filename='assets/video.mp4') }}"
+      type="video/mp4"
+    />
+  </video>
+  
+  <!-- Masthead-->
+  <div class="d-flex justify-content-center card m-5">
+      <h2>The Predicted Number of Orders is </h2>
+      <div class="h1">{{no_of_orders}}</div>
+      <a href="/predict" class="btn btn-light" type="button">Predict Again</a>
+  </div>
+
+  
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+  <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+{% endblock %}

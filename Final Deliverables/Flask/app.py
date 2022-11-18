@@ -28,7 +28,7 @@ def predict():
     prediction = model.predict(features_value)
     output = prediction[0]
     print(output)
-    return render_template('upload.html', prediction_text = output)
+    return render_template('result.html', prediction_text = output)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=False)
