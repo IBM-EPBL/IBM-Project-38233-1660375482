@@ -11302,9 +11302,9 @@ body:before {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #2a5555;
-  opacity: 0.7;
-  z-index: 1;
+  background-color: #000;
+  /* opacity: 0.7; */
+  /* z-index: 1; */
 }
 
 video.bg-video {
@@ -11346,7 +11346,7 @@ video.bg-video {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: pink;
 }
 .masthead .masthead-content {
   position: relative;
@@ -11375,6 +11375,12 @@ video.bg-video {
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: calc(1rem + 2px);
+}
+
+.scrollable-menu {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 @media (min-width: 992px) {

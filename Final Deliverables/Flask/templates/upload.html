@@ -1,46 +1,152 @@
 {% extends 'base.html' %} {% block body %}
 <body>
   <!-- Background Video-->
-  <video
-    class="bg-video"
-    playsinline="playsinline"
-    autoplay="autoplay"
-    muted="muted"
-    loop="loop"
-  >
-    <source
-      src="{{ url_for('static', filename='assets/video.mp4') }}"
-      type="video/mp4"
-    />
-  </video>
+  
   <!-- Masthead-->
-  <div class="masthead">
-    <div class="masthead-content text-white">
-      <div class="container-fluid px-4 px-lg-0">
-        <h1 class="fst-italic lh-1 mb-4">
-          DemandEst - AI Powered Food Demand Forecaster
-        </h1>
-        <p class="mb-5">
-          We're working hard to finish the development of this site. Sign up
-          below to receive updates and to be notified when we launch!
-        </p>
-        <button class="btn btn-primary" type="button">Predict Now!</button>
+  <div class=" d-flex justify-content-center text-light ">
+    <form>
+
+      <div class="radios py-3 dropdown">
+        <p>Home Page Featured:</p>
+        <input type="radio" id="yes" name="fav_language" value="1">
+        <label for="Yes">Yes</label><br>
+        <input type="radio" id="no" name="fav_language" value="0">
+        <label for="No">No</label><br>
       </div>
-    </div>
+
+      <div class="radios py-3 dropdown">
+        <p>Emailer for production:</p>
+        <input type="radio" id="yes" name="fav_language" value="1">
+        <label for="Yes">Yes</label><br>
+        <input type="radio" id="no" name="fav_language" value="0">
+        <label for="No">No</label><br>
+      </div>
+
+      <label for="quantity" class="dropdown py-3">OP_Area (between 2 and 7):
+      <input type="number" id="quantity" name="quantity" step="0.1" min="2" max="7">
+      </label>
+
+
+      <!-- Cuisine -->
+      <div class="dropdown">
+        <p>Cuisine</p>
+        <select name="homePageFeatured" id="homePageFeatured" class="btn btn-secondary dropdown-toggle">
+          <option value="0">Continental</option>
+          <option value="1">Indian</option>
+          <option value="2">Italian</option>
+          <option value="3">Thai</option>
+        </select>
+      </div>
+      <!-- End cuisine -->
+
+      <!-- City Code -->
+      <div class="dropdown py-3">
+        <p>City Code</p>
+        <select name="homePageFeatured" id="homePageFeatured" class="btn btn-secondary dropdown-toggle">
+        <option value="0">647</option>
+        <option value="0">614</option>
+        <option value="0">679</option>
+        <option value="0">659</option>
+        <option value="0">526</option>
+        <option value="0">590</option>
+        <option value="0">599</option>
+        <option value="0">685</option>
+        <option value="0">461</option>
+        <option value="0">649</option>
+        <option value="0">541</option>
+        <option value="0">478</option>
+        <option value="0">703</option>
+        <option value="0">576</option>
+        <option value="0">628</option>
+        <option value="0">702</option>
+        <option value="0">579</option>
+        <option value="0">596</option>
+        <option value="0">648</option>
+        <option value="0">632</option>
+        <option value="0">522</option>
+        <option value="0">615</option>
+        <option value="0">577</option>
+        <option value="0">517</option>
+        <option value="0">651</option>
+        <option value="0">683</option>
+        <option value="0">713</option>
+        <option value="0">609</option>
+        <option value="0">675</option>
+        <option value="0">553</option>
+        <option value="0">593</option>
+        <option value="0">654</option>
+        <option value="0">693</option>
+        <option value="0">658</option>
+        <option value="0">515</option>
+        <option value="0">556</option>
+        <option value="0">561</option>
+        <option value="0">680</option>
+        <option value="0">620</option>
+        <option value="0">638</option>
+        <option value="0">700</option>
+        <option value="0">676</option>
+        <option value="0">604</option>
+        <option value="0">456</option>
+        <option value="0">562</option>
+        <option value="0">695</option>
+        <option value="0">699</option>
+        <option value="0">602</option>
+        <option value="0">485</option>
+        <option value="0">698</option>
+        <option value="0">473</option>
+      </select>
+      </div>
+
+      <!-- End of City Code -->
+
+      <!-- Region Code -->
+      <div class="dropdown">
+        <p>Region Code</p>
+        <select name="homePageFeatured" id="homePageFeatured" class="btn btn-secondary dropdown-toggle">
+          <option value="0">56</option>
+          <option value="1">85</option>
+          <option value="2">77</option>
+          <option value="3">34</option>
+          <option value="3">35</option>
+          <option value="3">71</option>
+          <option value="3">93</option>
+          <option value="3">23</option>
+        </select>
+      </div>
+
+      <!-- Region Code -->
+
+      <!-- Categories -->
+      <div class="dropdown py-3">
+        <p>Categories</p>
+        <select name="homePageFeatured" id="homePageFeatured" class="btn btn-secondary dropdown-toggle">
+          <option value="0">Beverages</option>
+          <option value="1">Biryani</option>
+          <option value="2">Desert</option>
+          <option value="4">Fish</option>
+          <option value="5">Other Snacks</option>
+          <option value="6">Pasta</option>
+          <option value="7">Pizza</option>
+          <option value="8">Rice Bowl</option>
+          <option value="9">Salad</option>
+          <option value="10">Sandwich</option>
+          <option value="11">Seafood</option>
+          <option value="12">Soup</option>
+          <option value="13">Starters</option>
+          <option value="3">Extras</option>
+        </select>
+      </div>
+
+      <!-- Categories -->
+
+      <!-- Categories -->
+
+
+
+  </form>
   </div>
-  <!-- Social Icons-->
-  <!-- For more icon options, visit https://fontawesome.com/icons?d=gallery&p=2&s=brands-->
-  <div class="social-icons">
-    <div
-      class="d-flex flex-row flex-lg-column justify-content-center align-items-center h-100 mt-3 mt-lg-0"
-    >
-      <a class="btn btn-dark m-3" href="#!"><i class="fab fa-twitter"></i></a>
-      <a class="btn btn-dark m-3" href="#!"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-      <a class="btn btn-dark m-3" href="#!"><i class="fab fa-instagram"></i></a>
-    </div>
-  </div>
+
+  
   <!-- Bootstrap core JS-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Core theme JS-->
