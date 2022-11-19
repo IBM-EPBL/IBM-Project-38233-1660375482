@@ -54,5 +54,5 @@ def predict():
     return render_template('result.html', no_of_orders = int(predicted_value))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=False)
 
