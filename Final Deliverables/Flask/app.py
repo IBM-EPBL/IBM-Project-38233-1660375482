@@ -22,36 +22,44 @@ def pred():
 
 @app.route('/predict-value', methods=['POST'])
 def predict():
-    print("[INFO] loading model...")
-    model = pickle.loads(open('../Training/fdemand.pkl', 'rb').read())
+
     input_features = [float(x) for x in request.form.values()]
 
-    features_value = [np.array(input_features)]
     features_name = ['homepage_featured', 'emailer_for_promotion', 'op_area', 'cuisine', 'city_code', 'region_code', 'category']
 
+    predicted_value = predict_values(features_name, input_features)['predictions'][0]['values'][0][0]
+
+    return render_template('result.html', no_of_orders = int(predicted_value))
+
+def predict_values(feature_names, feature_values):
     # Access IBM Cloud
+    # Get API KEY 
     API_KEY = os.environ.get("API_KEY") or None
+    # Get MLToken
     token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":
     API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
     mltoken = token_response.json()["access_token"]
 
-    header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + mltoken}
+    # Prepare Payload
+    payload = {"input_data": [{"fields": feature_names, "values": [feature_values]}]}
 
-    # NOTE: manually define and pass the array(s) of values to be scored in the next line
-    payload_scoring = {"input_data": [{"fields": features_name, "values": [input_features]}]}
-
-    response_scoring = requests.post(
+    response = requests.post(
         'https://us-south.ml.cloud.ibm.com/ml/v4/deployments/7f16a51f-5465-40ad-a4d4-85b37976d269/predictions?version=2022-11-18', 
-        json=payload_scoring,
+        json=payload,
     headers={'Authorization': 'Bearer ' + mltoken})
-    predicted_value = response_scoring.json()['predictions'][0]['values'][0][0]
 
-    # For Local Deployment
+    print(response.json())
+    return response.json()
+
+    # ----------------- For Local Deployment -------------------------------
+    # print("[INFO] loading model...")
+    # model = pickle.loads(open('../Training/fdemand.pkl', 'rb').read())
+    # features_value = [np.array(input_features)]
     # prediction = model.predict(features_value)
     # output = prediction[0]
     # print(output)
+    # return output
 
-    return render_template('result.html', no_of_orders = int(predicted_value))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
